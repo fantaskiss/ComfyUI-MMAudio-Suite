@@ -365,8 +365,8 @@ class BigVGAN(
         revision: str,
         cache_dir: str,
         force_download: bool,
-        proxies: Optional[Dict],
-        resume_download: bool,
+        proxies: Optional[Dict] = None,
+        resume_download: Optional[bool] = False,
         local_files_only: bool,
         token: Union[str, bool, None],
         map_location: str = "cpu",  # Additional argument
@@ -425,7 +425,7 @@ class BigVGAN(
                 local_files_only=local_files_only,
             )
 
-        checkpoint_dict = torch.load(model_file, map_location=map_location, weights_only=True)
+        checkpoint_dict = torch.load(model_file, map_location=map_location, weights_only=False)
 
         try:
             model.load_state_dict(checkpoint_dict["generator"])
